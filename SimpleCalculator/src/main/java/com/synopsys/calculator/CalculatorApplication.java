@@ -17,9 +17,9 @@ public class CalculatorApplication{
 			inputexpr = args[0].replaceAll(" ", "");
 			
 			// minimum length for any expression is 8. Ex:- add(1,2)
-			// maximum length we are allowing to solve a expression is 200 
-			if(inputexpr.length() < 8 || inputexpr.length() > 200) {
-				LOGGER.error("Length of input expression must be greater than 8 and less than 200");
+			// maximum length we are allowing to solve a expression is 100 
+			if(inputexpr.length() < 8 || inputexpr.length() > 100) {
+				LOGGER.error("Length of input expression must be greater than 8 and less than 100");
 				LOGGER.error("Input expression not valid");
 				return;
 			}
