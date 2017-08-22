@@ -22,7 +22,7 @@ mvn clean install
 
 mvn compile
 
-vn -X exec:java -Dexec.mainClass="com.synopsis.calculator.CalculatorApplication" -Dexec.args="let(a, 5, add(a, a))"
+mvn -X exec:java -Dexec.mainClass="com.synopsis.calculator.CalculatorApplication" -Dexec.args="let(a, 5, add(a, a))"
 
 ```
 
