@@ -1,14 +1,16 @@
-package com.synopsys.test;
+package com.codiscope.test;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.After;
-import org.junit.AfterClass;
-import com.synopsys.calculator.Calculator;
+
+import com.codiscope.calculator.Calculator;
 
 public class CalculatorTest {
 
@@ -19,7 +21,7 @@ public class CalculatorTest {
 	@BeforeClass
 	public static void setUp() throws Exception {
 		LOGGER.debug("JUnit Test case started");
-		LOGGER.debug("Initializing the set up");
+		LOGGER.debug("Initializing the setup");
 		LOGGER.debug("Calculator class object has been created");
 		calculatorTest = new Calculator();
 	}
@@ -31,10 +33,41 @@ public class CalculatorTest {
 		calculatorTest = null;
 	}
 	
+
+	@Test(expected = RuntimeException.class)
+	public void testNull() throws Exception {
+		LOGGER.debug("Testing empty string");
+		assertEquals("Empty String", calculatorTest.evaluateExpression(""));
+	}
+	
+	@Test
+	public void testAdd() {
+		LOGGER.debug("Testing addition of 1 and 2");
+		assertEquals(3.0, calculatorTest.evaluateExpression("add(1,2)"), 0.0);
+	}
+	
+	@Test
+	public void testSubtract() {
+		LOGGER.debug("Testing addition of 2 and 1");
+		assertEquals(1.0, calculatorTest.evaluateExpression("sub(2,1)"), 0.0);
+	}
+	
+	@Test
+	public void testMultiplication() {
+		LOGGER.debug("Testing multiplication of 2 and 2");
+		assertEquals(4.0, calculatorTest.evaluateExpression("mult(2,2)"), 0.0);
+	}
+	
 	@Test(expected = ArithmeticException.class)
 	public void testDivision() {
 		LOGGER.debug("Testing divide by zero");
-		assertEquals("error", calculatorTest.evaluateExpression("div(20,0)"));
+		assertEquals("error", calculatorTest.evaluateExpression("div(2,0)"));
+	}
+	
+	@Test
+	public void testAddAndMultiplication() {
+		LOGGER.debug("Testing addition of 1 with multiplication of 2 and 3");
+		assertEquals(7.0, calculatorTest.evaluateExpression("add(1, mult(2, 3))"), 0.0);
 	}
 	
 	@Test
@@ -44,61 +77,19 @@ public class CalculatorTest {
 	}
 	
 	@Test(expected = NullPointerException.class)
-	public void testNegativeNumber() {
-		LOGGER.debug("Testing negative number, which this calculator not support");
-		assertEquals("error", calculatorTest.evaluateExpression("mult(-2, 3))"));
-	}
-	
-
-	@Test
-	public void testSum() {
-		LOGGER.debug("Testing addition of 3 and 4");
-		assertEquals(7.0, calculatorTest.evaluateExpression("add(3,4)"), 0.0);
-	}
-	
-	@Test
-	public void testSubtract() {
-		LOGGER.debug("Testing addition of 5 and 3");
-		assertEquals(2.0, calculatorTest.evaluateExpression("sub(5,3)"), 0.0);
-	}
+	public void testSubNegativeNumber() {
+		LOGGER.debug("Testing negative number");
+		assertEquals("error", calculatorTest.evaluateExpression("sub(1, 2))"));
 
 	@Test(expected = NullPointerException.class)
+	public void testNegativeNumber() {
+		LOGGER.debug("Testing negative number");
+		assertEquals("error", calculatorTest.evaluateExpression("mult(-1, 2))"));
+	}
+	
+	@Test(expected = NullPointerException.class)
 	public void testAddNegativeNumber() {
-		LOGGER.debug("Testing negative number, which this calculator not support");
-		assertEquals("error", calculatorTest.evaluateExpression("add(-4, -5))"));
+		LOGGER.debug("Testing negative number");
+		assertEquals("error", calculatorTest.evaluateExpression("add(-1, -2))"));
 	}
-
-	@Test(expected = RuntimeException.class)
-	public void testNullInput() throws Exception {
-		LOGGER.debug("Testing empty string");
-		assertEquals("Empty String", calculatorTest.evaluateExpression(""));
-	}
-	
-	@Test
-	public void testSum() {
-		LOGGER.debug("Testing addition of 3 and 4");
-		assertEquals(7.0, calculatorTest.evaluateExpression("add(3,4)"), 0.0);
-	}
-	
-	@Test
-	public void testSubtract() {
-		LOGGER.debug("Testing addition of 5 and 3");
-		assertEquals(2.0, calculatorTest.evaluateExpression("sub(5,3)"), 0.0);
-	}
-	
-	@Test
-	public void testMultiplication() {
-		LOGGER.debug("Testing multiplication of 3 and 4");
-		assertEquals(12.0, calculatorTest.evaluateExpression("mult(3,4)"), 0.0);
-	}
-	
-	
-	
-	@Test
-	public void testAddAndMultiplication() {
-		LOGGER.debug("Testing addition of 1 with multiplication of 2 and 3");
-		assertEquals(7.0, calculatorTest.evaluateExpression("add(1, mult(2, 3))"), 0.0);
-	}
-	
-	
 }

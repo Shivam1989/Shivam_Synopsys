@@ -10,8 +10,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ```
 Clone the Git repository
-Cean and Build the code
-Compile the code
+Clean and build the code
+Compile the below maven code
 
 ```
 
